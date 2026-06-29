@@ -1,20 +1,70 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KAIRO LEATHER — Maquette exacte</title>
-  <style>
-    *{box-sizing:border-box}html,body{margin:0;padding:0;background:#111;color:#fff;font-family:Arial, sans-serif}body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center}.page{width:100%;max-width:1536px;margin:0 auto;background:#fff;position:relative;box-shadow:0 30px 90px rgba(0,0,0,.55)}.reference{display:block;width:100%;height:auto}.note{position:fixed;right:16px;bottom:16px;background:rgba(16,14,12,.78);backdrop-filter:blur(8px);color:#e7d2aa;border:1px solid rgba(212,175,111,.35);border-radius:999px;padding:10px 14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;z-index:3}.hotspot{position:absolute;display:block;text-indent:-9999px;overflow:hidden;border-radius:999px}.shop{left:7.5%;top:47.5%;width:15%;height:6%}.cart{right:6.1%;top:6.8%;width:8.8%;height:4.7%}.admin{right:15.4%;top:6.8%;width:4.5%;height:4.7%}@media(max-width:700px){.note{display:none}body{background:#fff}.page{box-shadow:none}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KAIRO LEATHER — Bracelets en cuir premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <main class="page" aria-label="Maquette exacte KAIRO LEATHER">
-    <img class="reference" src="assets/kairo-maquette-reference.png" alt="Maquette exacte du site KAIRO LEATHER" />
-    <a class="hotspot shop" href="#boutique">Voir la collection</a>
-    <a class="hotspot cart" href="#panier">Panier</a>
-    <a class="hotspot admin" href="#admin">Admin</a>
-  </main>
-  <div class="note">Version contrôle visuel exacte</div>
+<div class="topbar">
+  <div class="top-left"><span>▱</span> LIVRAISON OFFERTE DÈS 60€ D’ACHAT</div>
+  <div class="top-center">CUIR AUTHENTIQUE <b>•</b> FAIT MAIN <b>•</b> EMBALLAGE PREMIUM</div>
+  <div class="top-right">♧ SERVICE CLIENT 7J/7</div>
+</div>
+<header class="header">
+  <a class="logo" href="#"><img src="assets/logo.png" alt="KAIRO LEATHER"></a>
+  <nav class="nav">
+    <a href="#">ACCUEIL</a>
+    <a href="#boutique">BOUTIQUE⌄</a>
+    <a href="#collections">COLLECTIONS⌄</a>
+    <a href="#apropos">À PROPOS</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
+  <div class="actions">
+    <button class="icon" aria-label="Recherche">⌕</button>
+    <button class="icon" aria-label="Compte">♙</button>
+    <button class="cart" onclick="openCart()"><span>▢</span> PANIER (<b id="cartCount">0</b>)</button>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">LE CARACTÈRE AU POIGNET</div>
+    <h1>KAIRO LEATHER</h1>
+    <h2>L’ÉLÉGANCE DU CUIR, LA FORCE DU DÉTAIL</h2>
+    <p>Des bracelets en cuir authentique, faits à la main<br>pour les hommes qui affirment leur style avec confiance.</p>
+    <a class="hero-btn" href="#produits">DÉCOUVRIR LA COLLECTION</a>
+  </div>
+  <div class="dots"><span class="active"></span><span></span><span></span></div>
+</section>
+<section class="trust">
+  <div><span class="trust-ico">♢</span><strong>CUIR AUTHENTIQUE</strong><em>Sélectionné avec soin</em></div>
+  <div><span class="trust-ico">♧</span><strong>FAIT MAIN</strong><em>Savoir-faire artisanal</em></div>
+  <div><span class="trust-ico">🎁</span><strong>EMBALLAGE PREMIUM</strong><em>Parfait pour offrir</em></div>
+  <div><span class="trust-ico">▱</span><strong>RETOUR FACILE</strong><em>30 jours pour changer d’avis</em></div>
+</section>
+<div class="notice"><button onclick="this.parentElement.style.display='none'">×</button><span>⚠</span><b>EMBALLAGE SOIGNÉ :</b> Seuls les articles non déballés peuvent faire l’objet d’un retour ou d’un échange.</div>
+<main id="produits" class="products-section">
+  <div class="section-head">
+    <div></div><div><h2>NOS MODÈLES PHARES</h2><div class="orn">— ✦ —</div><p>Des noms. Une histoire. Un style.</p></div><button class="view-all">VOIR TOUTE LA BOUTIQUE</button>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</main>
+<footer class="footer">
+  <div><span>▢</span><b>PAIEMENT SÉCURISÉ</b><em>Visa, Mastercard, Apple Pay</em></div>
+  <div><span>▱</span><b>LIVRAISON RAPIDE</b><em>2 à 5 jours ouvrés</em></div>
+  <div><span>↻</span><b>RETOURS FACILES</b><em>30 jours pour changer d’avis</em></div>
+  <div><span>▰</span><b>PAIEMENT EN 3X</b><em>Sans frais dès 60€ d’achat</em></div>
+</footer>
+<aside id="cartPanel" class="cart-panel">
+  <div class="cart-head"><h3>Mon panier</h3><button onclick="closeCart()">×</button></div>
+  <div id="cartItems" class="cart-items"></div>
+  <div class="cart-total">Total : <b id="cartTotal">0,00 €</b></div>
+  <button class="pay">Paiement carte bancaire</button>
+</aside>
+<script src="assets/app.js"></script>
 </body>
 </html>
