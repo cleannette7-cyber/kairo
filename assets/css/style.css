@@ -74,18 +74,90 @@ body[data-universe='femme'] .hero.femme .secondary{
 .colors i{display:none}
 .cart-item small{display:block;color:var(--gold2);font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-top:3px}
 
-
-/* === Développement demandé : logo plus grand + notations lisibles === */
+/* =========================================================
+   VERSION FINALE — CORRECTIONS VISIBLES DEMANDÉES
+   Logo agrandi sur toutes les pages + notations visibles
+   ========================================================= */
 .site-header{
-  min-height:128px;
-  grid-template-columns:310px 1fr 330px;
-  padding:0 64px;
+  min-height:138px !important;
+  height:auto !important;
+  grid-template-columns:320px 1fr 330px !important;
+  padding:18px 64px !important;
 }
-.site-header .brand{display:flex;align-items:center;justify-content:flex-start;min-width:280px}
-.site-header .brand img{height:112px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,.08))}
-.entry-card .brand img{height:190px;width:auto;object-fit:contain;margin:0 auto 18px;filter:drop-shadow(0 18px 34px rgba(0,0,0,.42))}
-.stars{font-size:15px;letter-spacing:.08em;color:#b88443;font-weight:800;margin:12px 0}.stars small{font-size:13px;color:#5f5145;letter-spacing:0;font-weight:700}.colors .color-dot{width:22px;height:22px}.variant-label{font-size:13px;font-weight:800}.card h3{font-size:27px}.price{font-size:24px}.badge{font-size:11px;padding:9px 14px}.cart-btn,.admin-link{padding:15px 20px}.universe-switch a{padding:11px 16px}
-body[data-universe='femme'] .hero.femme .kicker{color:#f0cb86!important}body[data-universe='femme'] .hero.femme h2{color:#efd094!important}body[data-universe='femme'] .hero.femme h1{background:linear-gradient(120deg,#fff 0%,#dadada 38%,#b6b6b6 62%,#f3d998 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 16px 30px rgba(0,0,0,.55))}body[data-universe='femme'] .hero.femme p{color:#f6f3ef!important}
-.admin-page .brand img{height:108px}
-@media(max-width:1100px){.site-header{grid-template-columns:240px 1fr;min-height:auto;padding:16px 24px}.site-header .brand img{height:86px}.header-actions{grid-column:1/-1;justify-content:flex-end}.main-nav{justify-content:flex-end}}
-@media(max-width:620px){.site-header .brand img{height:76px}.entry-card .brand img{height:130px}.site-header{padding:12px 16px}.main-nav{font-size:11px}.hero h1{font-size:52px}.stars{font-size:14px}.stars small{font-size:12px}}
+.brand{
+  display:flex !important;
+  align-items:center !important;
+}
+.brand img{
+  height:128px !important;
+  width:auto !important;
+  max-width:290px !important;
+  object-fit:contain !important;
+}
+.entry-card .brand{
+  justify-content:center !important;
+}
+.entry-card .brand img{
+  height:190px !important;
+  max-width:420px !important;
+  margin:0 auto 24px !important;
+}
+.admin-page + .brand img,
+.admin-page .brand img{
+  height:128px !important;
+}
+.stars{
+  font-size:18px !important;
+  color:#c58c43 !important;
+  letter-spacing:.06em !important;
+  margin:14px 0 12px !important;
+  font-weight:900 !important;
+}
+.stars small{
+  font-size:13px !important;
+  color:#7a5a36 !important;
+  letter-spacing:0 !important;
+  font-weight:800 !important;
+}
+.badge{
+  font-size:12px !important;
+  padding:10px 15px !important;
+}
+.variant-label{
+  font-size:13px !important;
+  margin-top:15px !important;
+}
+.colors .color-dot{
+  width:22px !important;
+  height:22px !important;
+}
+.card h3{
+  font-size:28px !important;
+}
+.price{
+  font-size:25px !important;
+}
+
+@media(max-width:1100px){
+  .site-header{
+    grid-template-columns:220px 1fr !important;
+    padding:16px 24px !important;
+  }
+  .header-actions{
+    grid-column:1/-1;
+    justify-content:center !important;
+    margin-top:12px;
+  }
+  .brand img{height:108px !important; max-width:230px !important;}
+}
+@media(max-width:760px){
+  .site-header{
+    grid-template-columns:1fr !important;
+    justify-items:center !important;
+    padding:16px 18px !important;
+  }
+  .brand img{height:96px !important; max-width:220px !important;}
+  .entry-card .brand img{height:135px !important; max-width:310px !important;}
+  .main-nav{justify-content:center !important;}
+  .stars{font-size:17px !important;}
+}
