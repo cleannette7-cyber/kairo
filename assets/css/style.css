@@ -73,3 +73,19 @@ body[data-universe='femme'] .hero.femme .secondary{
 }
 .colors i{display:none}
 .cart-item small{display:block;color:var(--gold2);font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-top:3px}
+
+
+/* === Développement demandé : logo plus grand + notations lisibles === */
+.site-header{
+  min-height:128px;
+  grid-template-columns:310px 1fr 330px;
+  padding:0 64px;
+}
+.site-header .brand{display:flex;align-items:center;justify-content:flex-start;min-width:280px}
+.site-header .brand img{height:112px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,.08))}
+.entry-card .brand img{height:190px;width:auto;object-fit:contain;margin:0 auto 18px;filter:drop-shadow(0 18px 34px rgba(0,0,0,.42))}
+.stars{font-size:15px;letter-spacing:.08em;color:#b88443;font-weight:800;margin:12px 0}.stars small{font-size:13px;color:#5f5145;letter-spacing:0;font-weight:700}.colors .color-dot{width:22px;height:22px}.variant-label{font-size:13px;font-weight:800}.card h3{font-size:27px}.price{font-size:24px}.badge{font-size:11px;padding:9px 14px}.cart-btn,.admin-link{padding:15px 20px}.universe-switch a{padding:11px 16px}
+body[data-universe='femme'] .hero.femme .kicker{color:#f0cb86!important}body[data-universe='femme'] .hero.femme h2{color:#efd094!important}body[data-universe='femme'] .hero.femme h1{background:linear-gradient(120deg,#fff 0%,#dadada 38%,#b6b6b6 62%,#f3d998 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 16px 30px rgba(0,0,0,.55))}body[data-universe='femme'] .hero.femme p{color:#f6f3ef!important}
+.admin-page .brand img{height:108px}
+@media(max-width:1100px){.site-header{grid-template-columns:240px 1fr;min-height:auto;padding:16px 24px}.site-header .brand img{height:86px}.header-actions{grid-column:1/-1;justify-content:flex-end}.main-nav{justify-content:flex-end}}
+@media(max-width:620px){.site-header .brand img{height:76px}.entry-card .brand img{height:130px}.site-header{padding:12px 16px}.main-nav{font-size:11px}.hero h1{font-size:52px}.stars{font-size:14px}.stars small{font-size:12px}}
