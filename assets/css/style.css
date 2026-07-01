@@ -12,3 +12,64 @@
 /* Univers Homme / Femme */
 .entry-body{min-height:100vh;background:#080706;color:#fff;overflow-x:hidden}.entry-main{min-height:100vh;display:grid;grid-template-rows:auto 1fr}.entry-hero{position:relative;min-height:calc(100vh - 36px);display:grid;place-items:center;padding:60px 24px;background:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.45),rgba(0,0,0,.12)),url('../images/hero1.jpg') center/cover no-repeat}.entry-card{width:min(1080px,94vw);text-align:center}.entry-card .brand img{height:112px;margin:0 auto 18px}.entry-card h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(48px,8vw,112px);font-weight:400;letter-spacing:.09em;margin:0;color:#fff5e8}.entry-card p{font-size:18px;line-height:1.8;color:#f3dec5;max-width:720px;margin:18px auto 34px}.universe-choices{display:grid;grid-template-columns:1fr 1fr;gap:22px}.choice{min-height:310px;border:1px solid rgba(232,196,142,.36);border-radius:32px;padding:32px;display:flex;flex-direction:column;justify-content:flex-end;text-align:left;overflow:hidden;position:relative;background:#1a120d;box-shadow:0 30px 80px rgba(0,0,0,.35)}.choice:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74)),var(--choice-img) center/cover no-repeat;transition:.5s}.choice:hover:before{transform:scale(1.06)}.choice>*{position:relative;z-index:1}.choice small{color:#e4bd82;letter-spacing:.28em;text-transform:uppercase;font-weight:900}.choice h2{font-family:Georgia,'Times New Roman',serif;font-size:46px;font-weight:400;margin:8px 0 10px}.choice span{width:max-content;border-radius:999px;background:#e1b779;color:#15100b;padding:13px 20px;text-transform:uppercase;letter-spacing:.13em;font-size:12px;font-weight:900}.choice.femme{--choice-img:url('../images/hero2.jpg')}.choice.homme{--choice-img:url('../images/hero1.jpg')}body[data-universe='femme']{--cream:#fbf7f1;--paper:#fffdf8;--gold:#d4ad73;--gold2:#b98b50;--black:#120f0c}.hero.femme .hero-bg{background:linear-gradient(90deg,rgba(255,250,242,.62),rgba(0,0,0,.18),rgba(0,0,0,.02)),url('../images/hero2.jpg') center/cover no-repeat}.hero.femme .hero-content{text-align:left;margin-left:min(8vw,80px);width:min(780px,86vw)}.hero.femme h1,.hero.femme h2{color:#2b1c12;text-shadow:none}.hero.femme p{color:#4d3b2b;margin-left:0}.hero.femme .kicker{color:#9a6834}.hero.femme .secondary{border-color:rgba(30,20,12,.25);color:#2b1c12;background:rgba(255,255,255,.45)}.universe-switch{display:inline-flex;gap:8px;border:1px solid var(--line);background:#fffaf4;border-radius:999px;padding:5px}.universe-switch a{border-radius:999px;padding:9px 13px;font-size:11px;text-transform:uppercase;letter-spacing:.11em;font-weight:900}.universe-switch a.active{background:#111;color:#fff}.cart-item small{display:block;color:var(--gold2);font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-top:3px}
 @media(max-width:760px){.universe-choices{grid-template-columns:1fr}.entry-card .brand img{height:82px}.choice{min-height:250px}.hero.femme .hero-content{text-align:center;margin-left:0}.hero.femme p{margin-left:auto}}
+
+
+/* Correctif univers Femme : texte hero en doré / argenté */
+body[data-universe='femme'] .hero.femme .hero-bg{
+  background:linear-gradient(90deg,rgba(8,7,6,.76),rgba(36,25,17,.34),rgba(255,248,238,.06)),url('../images/hero2.jpg') center/cover no-repeat;
+}
+body[data-universe='femme'] .hero.femme .kicker{
+  color:#e6c68b;
+  text-shadow:0 8px 26px rgba(0,0,0,.55);
+}
+body[data-universe='femme'] .hero.femme h1{
+  color:#e7e7e7;
+  background:linear-gradient(135deg,#ffffff 0%,#d9d9d9 42%,#b7b7b7 70%,#f4e8ce 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:none;
+  filter:drop-shadow(0 14px 28px rgba(0,0,0,.45));
+}
+body[data-universe='femme'] .hero.femme h2{
+  color:#e6c68b;
+  text-shadow:0 10px 30px rgba(0,0,0,.45);
+}
+body[data-universe='femme'] .hero.femme p{
+  color:#f1f1f1;
+  text-shadow:0 8px 24px rgba(0,0,0,.55);
+}
+body[data-universe='femme'] .hero.femme .secondary{
+  border-color:rgba(230,198,139,.55);
+  color:#f5f5f5;
+  background:rgba(255,255,255,.08);
+}
+
+/* Variantes couleurs cliquables */
+.variant-label{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.variant-label b{color:#17120e}
+.colors{display:flex;gap:9px;margin:13px 0 16px;align-items:center}
+.colors .color-dot{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:2px solid #fff;
+  background:var(--dot,#2a1710);
+  box-shadow:0 0 0 1px var(--line), 0 4px 10px rgba(0,0,0,.12);
+  padding:0;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.colors .color-dot:hover{transform:translateY(-1px) scale(1.08)}
+.colors .color-dot.active{
+  box-shadow:0 0 0 2px var(--gold),0 0 0 5px rgba(200,154,91,.18),0 6px 16px rgba(0,0,0,.16);
+  transform:scale(1.1);
+}
+.colors i{display:none}
+.cart-item small{display:block;color:var(--gold2);font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-top:3px}
