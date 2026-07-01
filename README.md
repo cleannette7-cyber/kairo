@@ -1,22 +1,12 @@
-# KAIRO LEATHER — Site boutique statique
+# KAIRO LEATHER — Univers Homme / Femme
 
-## Contenu
-- `index.html` : page boutique premium
-- `assets/css/style.css` : design complet
-- `assets/js/app.js` : produits, panier, quantités, suppression
-- `admin/admin.html` : espace admin local
-- `admin/admin.js` : ajout / modification / suppression produits
-- `assets/images/` : images produits
-- `assets/logo/logo.png` : logo compressé
-- `_redirects` et `_headers` : fichiers Netlify
+Pages incluses :
+- index.html : entrée premium Homme/Femme
+- homme.html : boutique Homme
+- femme.html : boutique Femme
+- admin/admin.html : gestion produits
 
-## Admin
-Mot de passe : `admin123`
+Mot de passe admin : admin123
 
-Les modifications produits sont sauvegardées dans le navigateur via `localStorage`. Pour une vraie boutique en ligne avec commandes et paiements réels, il faudra connecter une base de données et Stripe.
-
-## Paiement carte bancaire
-Le bouton est prêt visuellement. Pour encaisser réellement : intégrer Stripe Checkout côté serveur ou via une fonction Netlify.
-
-## Déploiement Netlify
-Publier le dossier complet à la racine. Pas de build nécessaire.
+Le panier est commun entre les deux univers via localStorage.
+Paiement CB : interface prête, Stripe à connecter pour encaisser réellement.
