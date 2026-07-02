@@ -1,17 +1,20 @@
-# KAIRO LEATHER — version finale corrigée
+# KAIRO LEATHER V3 FINAL
 
-Modifications intégrées dans cette version :
+Pages incluses :
+- index.html : entrée Homme/Femme
+- homme.html : univers Homme
+- femme.html : univers Femme
+- produit.html : base fiche produit
+- panier.html : base panier/paiement
+- admin.html : accès admin
 
-- Logo agrandi sur la page d'entrée, Homme, Femme et Admin.
-- Header agrandi pour que le logo respire et soit réellement visible.
-- Étoiles / notations produits agrandies.
-- Badges produits plus lisibles.
-- Pastilles de couleurs cliquables.
-- Couleur choisie visible et ajoutée au panier.
-- Texte de la page Femme en doré / argenté.
+Corrections intégrées :
+- Logo agrandi via CSS sur toutes les pages.
+- Bouton Voir tout fonctionnel : il mène à la collection et affiche les produits.
+- Pastilles couleurs cliquables.
+- Couleur sélectionnée enregistrée dans le panier.
 - Panier commun Homme/Femme.
-- Admin avec ajout/modification/suppression des produits.
+- Admin avec modification produits/prix/stock/images/univers/couleurs.
+- Texte Femme en doré/argenté.
 
-Mot de passe admin : admin123
-
-Déploiement : envoyer le dossier sur Netlify, Hostinger, OVH ou Ionos.
+Déploiement Netlify : déposer tous les fichiers à la racine.

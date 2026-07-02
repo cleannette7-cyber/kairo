@@ -1,108 +1,29 @@
-
-const defaultVariants = [
-  {id:'noir', name:'Noir', hex:'#15110e'},
-  {id:'marron', name:'Marron', hex:'#6b3f22'},
-  {id:'cognac', name:'Cognac', hex:'#b4773d'},
-  {id:'chocolat', name:'Chocolat', hex:'#3a2317'},
-  {id:'champagne', name:'Champagne', hex:'#d7b37a'}
+const START_PRODUCTS=[
+{id:1,universe:'homme',name:'HÉRITAGE',img:'heritage.jpg',tag:'BEST SELLER',price:29.90,stock:20,desc:"Symbole d’héritage et de valeurs transmises.",reviews:128,colors:['Marron','Noir','Cognac','Brun foncé']},
+{id:2,universe:'homme',name:'VOYAGEUR',img:'voyageur.jpg',tag:'NOUVEAU',price:29.90,stock:18,desc:'Pour les esprits libres et les âmes aventurières.',reviews:96,colors:['Noir','Marron','Gris','Brun']},
+{id:3,universe:'homme',name:'FORCE',img:'force.jpg',price:27.90,stock:15,desc:'La puissance intérieure au quotidien.',reviews:84,colors:['Brun','Noir','Cognac']},
+{id:4,universe:'homme',name:'ÉQUILIBRE',img:'equilibre.jpg',tag:'ÉDITION LIMITÉE',price:32.90,stock:9,desc:"L’harmonie parfaite entre force et sérénité.",reviews:71,colors:['Noir Or','Noir','Marron']},
+{id:5,universe:'homme',name:'PROTECTEUR',img:'protecteur.jpg',price:28.90,stock:14,desc:'Un talisman moderne pour vous accompagner.',reviews:63,colors:['Marron','Noir','Brun']},
+{id:6,universe:'homme',name:'INTEMPOREL',img:'intemporel.jpg',price:27.90,stock:16,desc:'Un classique qui traverse le temps.',reviews:55,colors:['Noir','Argent','Marron']},
+{id:7,universe:'femme',name:'ÉLÉGANCE',img:'equilibre.jpg',tag:'NOUVEAU',price:31.90,stock:18,desc:'Un bracelet lumineux, fin et raffiné.',reviews:74,colors:['Champagne','Argent','Noir','Beige']},
+{id:8,universe:'femme',name:'HARMONIE',img:'heritage.jpg',price:29.90,stock:17,desc:'La douceur du cuir avec une finition délicate.',reviews:61,colors:['Doré','Marron clair','Argent']},
+{id:9,universe:'femme',name:'LUMIÈRE',img:'voyageur.jpg',tag:'BEST SELLER',price:33.90,stock:12,desc:'Pensé pour les détails sobres et intemporels.',reviews:89,colors:['Argent','Champagne','Noir']}
 ];
-const femmeVariants = [
-  {id:'champagne', name:'Champagne', hex:'#d7b37a'},
-  {id:'argent', name:'Argent satiné', hex:'#d9d9d9'},
-  {id:'nude', name:'Nude rosé', hex:'#d8b9a7'},
-  {id:'camel', name:'Camel clair', hex:'#b98b50'},
-  {id:'noir', name:'Noir élégant', hex:'#15110e'}
-];
-const defaultProducts = [
-  {id:1,universe:'homme',name:'HÉRITAGE',img:'heritage.jpg',tag:'BEST SELLER',price:29.90,desc:'Symbole d’héritage, de valeurs transmises et de caractère discret.',reviews:128,stock:20,black:false,variants:defaultVariants},
-  {id:2,universe:'homme',name:'VOYAGEUR',img:'voyageur.jpg',tag:'NOUVEAU',price:29.90,desc:'Pour les esprits libres, les âmes aventurières et les styles affirmés.',reviews:96,stock:18,black:true,variants:defaultVariants},
-  {id:3,universe:'homme',name:'FORCE',img:'force.jpg',tag:'',price:27.90,desc:'La puissance intérieure au quotidien, dans une pièce sobre et masculine.',reviews:84,stock:24,black:false,variants:defaultVariants},
-  {id:4,universe:'homme',name:'ÉQUILIBRE',img:'equilibre.jpg',tag:'ÉDITION LIMITÉE',price:32.90,desc:'L’harmonie parfaite entre force, sérénité et élégance du cuir.',reviews:71,stock:12,black:true,variants:defaultVariants},
-  {id:5,universe:'femme',name:'ÉLÉGANCE',img:'protecteur.jpg',tag:'BEST SELLER',price:28.90,desc:'Un bracelet délicat au caractère lumineux, pensé pour sublimer le poignet.',reviews:63,stock:15,black:false,variants:femmeVariants},
-  {id:6,universe:'femme',name:'LUMIÈRE',img:'intemporel.jpg',tag:'NOUVEAU',price:27.90,desc:'Un modèle doux et intemporel, entre cuir fin, éclat champagne et féminité.',reviews:55,stock:22,black:false,variants:femmeVariants},
-  {id:7,universe:'femme',name:'HARMONIE',img:'equilibre.jpg',tag:'ÉDITION LIMITÉE',price:32.90,desc:'Une pièce raffinée qui associe douceur, équilibre et détails précieux.',reviews:48,stock:14,black:true,variants:femmeVariants},
-  {id:8,universe:'femme',name:'GRÂCE',img:'heritage.jpg',tag:'',price:29.90,desc:'Un bracelet élégant, minimaliste et facile à porter au quotidien.',reviews:42,stock:16,black:false,variants:femmeVariants}
-];
-function normalizeProducts(list){
-  return list.map(p=>{
-    if(!p.variants || !Array.isArray(p.variants) || !p.variants.length){
-      p.variants = p.universe === 'femme' ? femmeVariants : defaultVariants;
-    }
-    return p;
-  });
-}
-let products = normalizeProducts(JSON.parse(localStorage.getItem('kairo_products') || 'null') || defaultProducts);
-let cart = JSON.parse(localStorage.getItem('kairo_cart') || '[]');
-const selectedVariants = {};
-const euro = n => Number(n||0).toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
-const currentUniverse = document.body.dataset.universe || 'all';
-function saveCart(){ localStorage.setItem('kairo_cart', JSON.stringify(cart)); }
-function shownProducts(){ return currentUniverse==='all' ? products : products.filter(p => p.universe===currentUniverse || p.universe==='mixte'); }
-function getVariant(product, variantId){
-  const variants = product.variants || (product.universe === 'femme' ? femmeVariants : defaultVariants);
-  return variants.find(v=>v.id===variantId) || variants[0];
-}
-function renderProducts(){
-  const grid=document.getElementById('productGrid'); if(!grid) return;
-  grid.innerHTML=shownProducts().map(p=>{
-    const active = selectedVariants[p.id] || (p.variants?.[0]?.id) || 'noir';
-    const variant = getVariant(p, active);
-    selectedVariants[p.id] = variant.id;
-    const image = variant.img || p.img;
-    const price = Number(variant.price ?? p.price);
-    return `<article class="card" role="listitem" data-product-id="${p.id}">
-    ${p.tag?`<div class="badge ${p.black?'black':''}">${p.tag}</div>`:''}
-    <div class="pimg"><img class="product-image" src="assets/images/${image}" alt="Bracelet ${p.name} couleur ${variant.name}" loading="lazy"></div>
-    <div class="card-body"><h3>${p.name}</h3><p>${p.desc}</p><div class="price" data-price>${euro(price)}</div><div class="stars">★★★★★ <small>(${p.reviews||0})</small></div>
-      <div class="variant-label">Couleur : <b data-variant-name>${variant.name}</b></div>
-      <div class="colors" role="radiogroup" aria-label="Choisir la couleur du bracelet ${p.name}">${(p.variants||[]).map((v,idx)=>`<button type="button" class="color-dot ${v.id===variant.id?'active':''}" data-product="${p.id}" data-variant="${v.id}" aria-label="${v.name}" aria-pressed="${v.id===variant.id?'true':'false'}" style="--dot:${v.hex||'#15110e'}"></button>`).join('')}</div>
-      <button class="btn-add" data-id="${p.id}">Ajouter au panier</button></div>
-  </article>`;
-  }).join('');
-}
-function selectVariant(productId, variantId){
-  const product = products.find(p=>p.id===+productId); if(!product) return;
-  const variant = getVariant(product, variantId); selectedVariants[product.id] = variant.id;
-  const card = document.querySelector(`[data-product-id="${product.id}"]`); if(!card) return;
-  const img = card.querySelector('.product-image');
-  if(img){ img.src = `assets/images/${variant.img || product.img}`; img.alt = `Bracelet ${product.name} couleur ${variant.name}`; }
-  const name = card.querySelector('[data-variant-name]'); if(name) name.textContent = variant.name;
-  const price = card.querySelector('[data-price]'); if(price) price.textContent = euro(variant.price ?? product.price);
-  card.querySelectorAll('.color-dot').forEach(btn=>{
-    const isActive = btn.dataset.variant === variant.id;
-    btn.classList.toggle('active', isActive);
-    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-  });
-}
-function addToCart(id){
-  const p=products.find(x=>x.id===+id); if(!p) return;
-  const variant = getVariant(p, selectedVariants[p.id] || p.variants?.[0]?.id);
-  const variantId = variant.id;
-  const key = `${p.id}-${variantId}`;
-  const item=cart.find(x=>x.key===key);
-  const itemPrice = Number(variant.price ?? p.price);
-  if(item)item.qty++;
-  else cart.push({key,id:p.id,name:p.name,price:itemPrice,img:variant.img||p.img,universe:p.universe,variantId,variantName:variant.name,variantHex:variant.hex,qty:1});
-  drawCart(); saveCart(); openCart();
-}
-function removeFromCart(key){ cart=cart.filter(i=>i.key!==key); drawCart(); saveCart(); }
-function changeQty(key,qty){ const item=cart.find(i=>i.key===key); if(!item)return; item.qty=Math.max(1,qty); drawCart(); saveCart(); }
-function drawCart(){
-  const count=document.getElementById('cartCount'); if(count) count.textContent=cart.reduce((s,i)=>s+i.qty,0);
-  const items=document.getElementById('cartItems'); if(!items) return;
-  if(!cart.length) items.innerHTML='<p>Votre panier est vide.</p>'; else items.innerHTML=cart.map(i=>`<div class="cart-item"><div><strong>${i.name}</strong><small>${i.universe==='femme'?'Femme':'Homme'} — ${i.variantName||'Couleur standard'}</small><div class="cart-controls"><button class="qty-decrease" data-key="${i.key}">−</button><input class="qty-input" data-key="${i.key}" value="${i.qty}" aria-label="Quantité"><button class="qty-increase" data-key="${i.key}">+</button><button class="remove-item" data-key="${i.key}">Supprimer</button></div></div><b>${euro(i.price*i.qty)}</b></div>`).join('');
-  const total=document.getElementById('cartTotal'); if(total) total.textContent=euro(cart.reduce((s,i)=>s+i.price*i.qty,0));
-}
-function openCart(){const p=document.getElementById('cartPanel'); if(p){p.classList.add('open');p.setAttribute('aria-hidden','false');document.getElementById('cartToggle')?.setAttribute('aria-expanded','true');}}
-function closeCart(){const p=document.getElementById('cartPanel'); if(p){p.classList.remove('open');p.setAttribute('aria-hidden','true');document.getElementById('cartToggle')?.setAttribute('aria-expanded','false');}}
-document.addEventListener('click',e=>{
-  const color=e.target.closest('.color-dot'); if(color) return selectVariant(color.dataset.product, color.dataset.variant);
-  const add=e.target.closest('.btn-add'); if(add)return addToCart(add.dataset.id);
-  const rem=e.target.closest('.remove-item'); if(rem)return removeFromCart(rem.dataset.key);
-  const inc=e.target.closest('.qty-increase'); if(inc){const it=cart.find(i=>i.key===inc.dataset.key); return changeQty(inc.dataset.key,(it?it.qty:1)+1)}
-  const dec=e.target.closest('.qty-decrease'); if(dec){const it=cart.find(i=>i.key===dec.dataset.key); return changeQty(dec.dataset.key,Math.max(1,(it?it.qty:1)-1))}
-  if(e.target.id==='cartToggle') return openCart(); if(e.target.id==='closeCart') return closeCart(); if(e.target.id==='checkout') alert('Paiement Stripe à connecter : la partie visuelle est prête.');
-});
-document.addEventListener('input',e=>{if(e.target.classList.contains('qty-input')) changeQty(e.target.dataset.key,parseInt(e.target.value,10)||1);});
-document.addEventListener('keydown',e=>{if(e.key==='Escape') closeCart();});
+const COLOR_MAP={'Noir':'#080808','Marron':'#4a2b18','Cognac':'#a65d25','Brun foncé':'#2b170e','Brun':'#5a3724','Gris':'#777','Noir Or':'#0b0b0b','Argent':'#c9c9c9','Champagne':'#e5c98f','Beige':'#eadcc6','Doré':'#c79245','Marron clair':'#9b6b40'};
+let products=JSON.parse(localStorage.getItem('kairo_products')||'null')||START_PRODUCTS;
+let cart=JSON.parse(localStorage.getItem('kairo_cart')||'[]');
+const euro=n=>n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
+function save(){localStorage.setItem('kairo_products',JSON.stringify(products));localStorage.setItem('kairo_cart',JSON.stringify(cart));}
+function universe(){return document.body.dataset.universe||'all'}
+function productHTML(p){let selected=p.colors?.[0]||'Noir';return `<article class="product-card" data-id="${p.id}" role="listitem">${p.tag?`<div class="badge ${p.tag.includes('ÉDITION')||p.tag.includes('NOUVEAU')?'black':''}">${p.tag}</div>`:''}<div class="p-img"><img src="assets/images/${p.img}" alt="${p.name}"></div><div class="p-body"><h3>${p.name}</h3><p>${p.desc}</p><div class="price">${euro(p.price)}</div><div class="stars">★★★★★ <small>(${p.reviews})</small></div><div class="swatches">${(p.colors||[]).map((c,i)=>`<button class="swatch ${i===0?'selected':''}" data-color="${c}" title="${c}" aria-label="Choisir ${c}" style="background:${COLOR_MAP[c]||'#333'}"></button>`).join('')}</div><div class="selected-color">Couleur : <b>${selected}</b></div><button class="add-btn" data-add="${p.id}">Ajouter au panier</button></div></article>`}
+function renderProducts(){const grid=document.querySelector('#productGrid');if(!grid)return;const u=universe();const list=products.filter(p=>u==='all'||p.universe===u||p.universe==='mixte');grid.innerHTML=list.map(productHTML).join('');}
+function addToCart(id){const card=document.querySelector(`.product-card[data-id="${id}"]`);const p=products.find(x=>x.id==id);const color=card?.querySelector('.selected-color b')?.textContent || (p.colors?.[0]||'');const key=id+'-'+color;const it=cart.find(x=>x.key===key);if(it)it.qty++;else cart.push({key,id:p.id,name:p.name,price:p.price,img:p.img,color,qty:1});save();drawCart();openCart();}
+function drawCart(){document.querySelectorAll('.cart-count').forEach(e=>e.textContent=cart.reduce((s,i)=>s+i.qty,0));const box=document.querySelector('#cartItems');if(!box)return;if(!cart.length){box.innerHTML='<p>Votre panier est vide.</p>'}else{box.innerHTML=cart.map(i=>`<div class="cart-item"><div><strong>${i.name}</strong><br><small>Couleur : ${i.color}</small><div class="qty"><button data-dec="${i.key}">−</button><b>${i.qty}</b><button data-inc="${i.key}">+</button><button class="remove" data-remove="${i.key}">Supprimer</button></div></div><b>${euro(i.price*i.qty)}</b></div>`).join('')}document.querySelector('#cartTotal')&&(document.querySelector('#cartTotal').textContent=euro(cart.reduce((s,i)=>s+i.price*i.qty,0)));}
+function openCart(){document.querySelector('#cartPanel')?.classList.add('open')}function closeCart(){document.querySelector('#cartPanel')?.classList.remove('open')}
+function showAllProducts(){document.querySelector('#all-products')?.scrollIntoView({behavior:'smooth'});document.querySelectorAll('.product-card').forEach(c=>c.style.display='block')}
+function adminOpen(){document.querySelector('#adminModal')?.classList.add('open');renderAdmin()}function adminClose(){document.querySelector('#adminModal')?.classList.remove('open')}
+function renderAdmin(){const box=document.querySelector('#adminList');if(!box)return;box.innerHTML=products.map(p=>`<tr><td>${p.name}</td><td>${p.universe}</td><td>${euro(p.price)}</td><td>${p.stock}</td><td><button data-edit="${p.id}">Modifier</button><button data-del="${p.id}">Supprimer</button></td></tr>`).join('')}
+function fillAdmin(id){const p=products.find(x=>x.id==id);if(!p)return;['id','name','universe','price','stock','img','tag','desc','colors'].forEach(k=>{const el=document.querySelector(`#admin_${k}`);if(el)el.value=k==='colors'?(p.colors||[]).join(', '):p[k]??''})}
+function saveAdmin(){const id=+document.querySelector('#admin_id').value||Date.now();const obj={id, name:admin_name.value||'Nouveau modèle', universe:admin_universe.value, price:+admin_price.value||0, stock:+admin_stock.value||0, img:admin_img.value||'heritage.jpg', tag:admin_tag.value, desc:admin_desc.value, reviews:50, colors:admin_colors.value.split(',').map(s=>s.trim()).filter(Boolean)};const idx=products.findIndex(p=>p.id===id);if(idx>=0)products[idx]=obj;else products.push(obj);save();renderProducts();renderAdmin();}
+document.addEventListener('click',e=>{const sw=e.target.closest('.swatch');if(sw){const card=sw.closest('.product-card');card.querySelectorAll('.swatch').forEach(x=>x.classList.remove('selected'));sw.classList.add('selected');card.querySelector('.selected-color b').textContent=sw.dataset.color;return}if(e.target.matches('[data-add]'))return addToCart(e.target.dataset.add);if(e.target.matches('[data-inc]')){let it=cart.find(x=>x.key===e.target.dataset.inc);if(it)it.qty++;save();drawCart()}if(e.target.matches('[data-dec]')){let it=cart.find(x=>x.key===e.target.dataset.dec);if(it)it.qty=Math.max(1,it.qty-1);save();drawCart()}if(e.target.matches('[data-remove]')){cart=cart.filter(x=>x.key!==e.target.dataset.remove);save();drawCart()}if(e.target.matches('[data-view-all]'))showAllProducts();if(e.target.matches('[data-cart]'))openCart();if(e.target.matches('[data-close-cart]'))closeCart();if(e.target.matches('[data-admin]'))adminOpen();if(e.target.matches('[data-close-admin]'))adminClose();if(e.target.matches('[data-edit]'))fillAdmin(e.target.dataset.edit);if(e.target.matches('[data-del]')){products=products.filter(p=>p.id!=e.target.dataset.del);save();renderProducts();renderAdmin();}if(e.target.matches('[data-save-admin]'))saveAdmin();});
 document.addEventListener('DOMContentLoaded',()=>{renderProducts();drawCart();});
